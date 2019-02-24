@@ -1,2 +1,2 @@
 # docker-alpine
-Alpine base image with bash installed
+Alpine base image with python3 installed
