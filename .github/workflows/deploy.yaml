@@ -1,12 +1,14 @@
 name: Deploy
 on:
   push:
-    branches: [ main, master ]
+    branches: [ main ]
+
+  repository_dispatch:
+    types: [trigger-container-build]
 jobs:
 
   build-and-push:
     runs-on: ubuntu-latest
-    # needs: debug
     steps:
       - uses: actions/checkout@v3
       - name: Buildah Build
@@ -21,6 +23,6 @@ jobs:
         with:
           image: ${{ vars.QUAY_REPO }}/python
           tags: latest
-          registry: ${{ vars.QUAY_REGISTRY }} #quay.io/net-sec
-          username: ${{ vars.QUAY_REGISTRY_USER }} #claudio_walser
+          registry: ${{ vars.QUAY_REGISTRY }}
+          username: ${{ vars.QUAY_REGISTRY_USER }}
           password: ${{ secrets.QUAY_REGISTRY_PASSWORD }}
